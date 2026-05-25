@@ -1,0 +1,7 @@
+{
+  "name": "kennect22-new",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular-standalone"
+}
