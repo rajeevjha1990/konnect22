@@ -1,0 +1,60 @@
+<ion-content class="auth-page" fullscreen>
+  <div class="hero-section">
+    <img src="assets/logo/k2-logo.png" alt="Logo" class="app-logo" />
+
+    <h1>konnect 22</h1>
+
+    <p>Login to your account</p>
+  </div>
+
+  <div class="auth-card">
+    <h2>Welcome Back</h2>
+    <ion-item lines="none" class="custom-input">
+      <ion-label position="stacked">Mobile Number</ion-label>
+      <ion-input
+        type="tel"
+        [(ngModel)]="loginData.mobile"
+        name="mobile"
+        placeholder="Enter mobile number"
+        maxlength="10"
+      >
+      </ion-input>
+    </ion-item>
+
+    <ion-item lines="none" class="custom-input">
+      <ion-label position="stacked">Password</ion-label>
+
+      <ion-input
+        [type]="showPassword ? 'text' : 'password'"
+        [(ngModel)]="loginData.password"
+        name="password"
+        placeholder="Enter password"
+      >
+      </ion-input>
+      <ion-icon slot="end" name="person-outline"></ion-icon>
+    </ion-item>
+
+    <div class="forgot-row">
+      <a routerLink="/forgot-password">Forgot Password?</a>
+    </div>
+
+    <ion-text color="danger" *ngIf="loginError" class="ion-padding-top">
+      {{ loginError }}
+    </ion-text>
+
+    <ion-button expand="block" (click)="login()" [disabled]="isSubmitting">
+      <span *ngIf="!isSubmitting">Login</span>
+      <span
+        *ngIf="isSubmitting"
+        style="display: flex; align-items: center; gap: 10px"
+      >
+        <ion-spinner name="crescent"></ion-spinner> Logging in...
+      </span>
+    </ion-button>
+
+    <div class="bottom-link">
+      Don't have an account?
+      <span routerLink="/register">Register</span>
+    </div>
+  </div>
+</ion-content>

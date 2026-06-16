@@ -1,0 +1,26 @@
+<app-header></app-header>
+
+<ion-content class="ion-padding">
+  <h2>My Wishlist ❤️</h2>
+
+  <ion-grid>
+    <ion-row>
+      <ion-col
+        size="6"
+        size-md="4"
+        size-lg="3"
+        *ngFor="let product of wishlistItems"
+      >
+        <app-product-card [product]="product"> </app-product-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <!-- EMPTY -->
+
+  <div class="empty-state" *ngIf="wishlistItems.length === 0">
+    <ion-icon name="heart-outline"></ion-icon>
+
+    <h3>Your Wishlist is Empty</h3>
+  </div>
+</ion-content>

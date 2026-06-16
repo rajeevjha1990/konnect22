@@ -1,0 +1,80 @@
+<app-header></app-header>
+
+<ion-content class="ion-padding">
+  <div *ngIf="product">
+    <!-- Product Image -->
+
+    <div class="image-box">
+      <img [src]="product.image" [alt]="product.name" />
+    </div>
+
+    <!-- Product Info -->
+
+    <div class="product-info">
+      <h1>{{ product.name }}</h1>
+
+      <h2>₹{{ product.price }}</h2>
+
+      <p class="rating">⭐ {{ product.rating || 4.5 }} Rating</p>
+
+      <p class="description">
+        {{ product.description || 'Premium quality product with fast delivery
+        and trusted shopping experience.' }}
+      </p>
+    </div>
+
+    <!-- Quantity -->
+
+    <div class="qty-box">
+      <h3>Quantity</h3>
+
+      <div class="qty-controls">
+        <ion-button fill="outline" size="small" (click)="decreaseQty()">
+          -
+        </ion-button>
+
+        <span>{{ quantity }}</span>
+
+        <ion-button fill="outline" size="small" (click)="increaseQty()">
+          +
+        </ion-button>
+      </div>
+    </div>
+
+    <!-- Buttons -->
+
+    <div class="btn-group">
+      <ion-button expand="block" fill="outline" (click)="addToCart()">
+        Add To Cart
+      </ion-button>
+
+      <ion-button expand="block" (click)="buyNow()"> Buy Now </ion-button>
+    </div>
+
+    <!-- Related Products -->
+
+    <div class="related-section" *ngIf="relatedProducts.length > 0">
+      <h2>Related Products</h2>
+
+      <div class="related-list">
+        <div class="related-card" *ngFor="let item of relatedProducts">
+          <div class="related-click" (click)="openRelatedProduct(item)">
+            <img [src]="item.image" [alt]="item.name" />
+
+            <h3>{{ item.name }}</h3>
+
+            <p>₹{{ item.price }}</p>
+          </div>
+
+          <ion-button
+            size="small"
+            expand="block"
+            (click)="addRelatedToCart(item)"
+          >
+            Add To Cart
+          </ion-button>
+        </div>
+      </div>
+    </div>
+  </div>
+</ion-content>

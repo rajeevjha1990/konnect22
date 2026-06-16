@@ -1,0 +1,98 @@
+.login-page {
+  --background: #f4f6f9;
+}
+
+.login-hero {
+  height: 230px;
+  background: linear-gradient(135deg, #6a11cb, #2575fc);
+
+  border-bottom-left-radius: 40px;
+  border-bottom-right-radius: 40px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  text-align: center;
+  color: white;
+
+  padding: 20px;
+}
+
+.hero-content h1 {
+  font-size: 32px;
+  font-weight: 700;
+  margin-top: 10px;
+  margin-bottom: 8px;
+}
+
+.hero-content p {
+  opacity: 0.9;
+  font-size: 15px;
+}
+
+.green {
+  color: #90ee90;
+}
+
+.login-logo {
+  width: 80px;
+  height: 80px;
+  border-radius: 16px;
+  background: white;
+  padding: 6px;
+}
+
+.main-container {
+  margin-top: -55px;
+  position: relative;
+  z-index: 10;
+}
+
+.login-form-card {
+  border-radius: 24px;
+  overflow: hidden;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+}
+
+.custom-input {
+  --background: #f8fafc;
+  --border-radius: 14px;
+  margin-bottom: 14px;
+}
+
+.login-btn {
+  height: 52px;
+  margin-top: 12px;
+
+  --border-radius: 14px;
+
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.register-link {
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.otp-box {
+  text-align: center;
+  margin-bottom: 20px;
+
+  h3 {
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+
+  p {
+    color: #666;
+    font-size: 14px;
+  }
+}
+
+ion-card-title {
+  font-size: 24px;
+  font-weight: 700;
+}

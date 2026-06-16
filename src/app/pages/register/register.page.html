@@ -1,0 +1,146 @@
+<ion-content class="login-page" fullscreen>
+  <div class="login-hero">
+    <div class="hero-content">
+      <img src="assets/logo/k2-logo.png" alt="Logo" class="login-logo" />
+
+      <h1>konnect <span class="green">22</span></h1>
+
+      <p>
+        {{ isOtpSent ? 'Verify your mobile number' : 'Create your account' }}
+      </p>
+    </div>
+  </div>
+
+  <div class="main-container">
+    <section class="form-section ion-padding">
+      <ion-card class="login-form-card">
+        <ion-card-header>
+          <ion-card-title class="ion-text-center">
+            {{ isOtpSent ? 'OTP Verification' : 'Registration' }}
+          </ion-card-title>
+        </ion-card-header>
+
+        <ion-card-content>
+          <div *ngIf="!isOtpSent">
+            <ion-item lines="none" class="custom-input">
+              <ion-label position="stacked"> Mobile Number </ion-label>
+
+              <ion-input
+                type="tel"
+                [(ngModel)]="registerData.mobile"
+                name="mobile"
+                maxlength="10"
+                placeholder="Enter mobile number"
+                required
+              >
+              </ion-input>
+            </ion-item>
+
+            <ion-button
+              expand="block"
+              type="button"
+              class="login-btn"
+              (click)="sendOtp()"
+              [disabled]="isSubmitting"
+            >
+              <span
+                *ngIf="!isSubmitting"
+                style="
+                  display: flex;
+                  align-items: center;
+                  justify-content: center;
+                  width: 100%;
+                "
+              >
+                Get OTP
+                <ion-icon
+                  slot="end"
+                  name="chevron-forward-outline"
+                  style="margin-left: 8px"
+                ></ion-icon>
+              </span>
+              <span
+                *ngIf="isSubmitting"
+                style="display: flex; align-items: center; gap: 10px"
+              >
+                <ion-spinner name="crescent"></ion-spinner> Please wait...
+              </span>
+            </ion-button>
+          </div>
+
+          <div *ngIf="isOtpSent">
+            <div class="otp-box">
+              <h3>Verify Mobile Number</h3>
+
+              <p>
+                OTP sent to
+                <strong> {{ registerData.mobile }} </strong>
+              </p>
+            </div>
+
+            <ion-item lines="none" class="custom-input">
+              <ion-label position="stacked"> Enter OTP </ion-label>
+
+              <ion-input
+                type="number"
+                [(ngModel)]="registerData.otp"
+                name="otp"
+                placeholder="Enter OTP"
+                required
+              >
+              </ion-input>
+            </ion-item>
+
+            <ion-button
+              expand="block"
+              type="button"
+              class="login-btn"
+              (click)="verifyAndRegister()"
+              [disabled]="isSubmitting"
+            >
+              <span
+                *ngIf="!isSubmitting"
+                style="
+                  display: flex;
+                  align-items: center;
+                  justify-content: center;
+                  width: 100%;
+                "
+              >
+                Verify OTP
+                <ion-icon
+                  slot="end"
+                  name="checkmark-circle-outline"
+                  style="margin-left: 8px"
+                ></ion-icon>
+              </span>
+              <span
+                *ngIf="isSubmitting"
+                style="display: flex; align-items: center; gap: 10px"
+              >
+                <ion-spinner name="crescent"></ion-spinner> Verifying...
+              </span>
+            </ion-button>
+
+            <ion-button
+              expand="block"
+              fill="clear"
+              color="medium"
+              (click)="isOtpSent = false"
+              [disabled]="isSubmitting"
+            >
+              Change Number
+            </ion-button>
+          </div>
+
+          <div class="ion-text-center ion-margin-top" *ngIf="!isOtpSent">
+            <p>
+              Already have an account?
+              <a routerLink="/login" class="register-link"> Login </a>
+            </p>
+          </div>
+        </ion-card-content>
+      </ion-card>
+    </section>
+  </div>
+</ion-content>

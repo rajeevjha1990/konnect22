@@ -3,11 +3,68 @@ import { Routes } from '@angular/router';
 export const routes: Routes = [
   {
     path: 'home',
-    loadComponent: () => import('./home/home.page').then((m) => m.HomePage),
+    loadComponent: () =>
+      import('./pages/home/home.page').then((m) => m.HomePage),
   },
+
   {
     path: '',
-    redirectTo: 'home',
+    redirectTo: 'login',
     pathMatch: 'full',
+  },
+  {
+    path: 'cart',
+    loadComponent: () =>
+      import('./pages/cart/cart.page').then((m) => m.CartPage),
+  },
+  {
+    path: 'checkout',
+    loadComponent: () =>
+      import('./pages/checkout/checkout.page').then((m) => m.CheckoutPage),
+  },
+  {
+    path: 'order-success',
+    loadComponent: () =>
+      import('./pages/order-success/order-success.page').then(
+        (m) => m.OrderSuccessPage,
+      ),
+  },
+  {
+    path: 'my-orders',
+    loadComponent: () =>
+      import('./pages/my-orders/my-orders.page').then((m) => m.MyOrdersPage),
+  },
+  {
+    path: 'product-details/:id',
+    loadComponent: () =>
+      import('./pages/product-details/product-details.page').then(
+        (m) => m.ProductDetailsPage,
+      ),
+  },
+  {
+    path: 'wishlist',
+    loadComponent: () =>
+      import('./pages/wishlist/wishlist.page').then((m) => m.WishlistPage),
+  },
+  {
+    path: 'login',
+    loadComponent: () =>
+      import('./pages/login/login.page').then((m) => m.LoginPage),
+  },
+  {
+    path: 'register',
+    loadComponent: () =>
+      import('./pages/register/register.page').then((m) => m.RegisterPage),
+  },
+  {
+    path: 'create-password',
+    loadComponent: () =>
+      import('./pages/create-password/create-password.page').then(
+        (m) => m.CreatePasswordPage,
+      ),
+  },
+  {
+    path: 'profile',
+    loadComponent: () => import('./pages/profile/profile.page').then( m => m.ProfilePage)
   },
 ];

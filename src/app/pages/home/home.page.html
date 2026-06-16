@@ -1,0 +1,130 @@
+<app-header></app-header>
+
+<ion-content [fullscreen]="true" class="home-content">
+  <!-- SEARCH -->
+  <div class="search-section">
+    <div class="search-box">
+      <ion-icon name="search-outline"></ion-icon>
+
+      <ion-input
+        type="text"
+        placeholder="Search products..."
+        [(ngModel)]="searchTerm"
+        (ionInput)="onSearchChange()"
+      >
+      </ion-input>
+
+      <ion-icon
+        *ngIf="searchTerm"
+        name="close-circle"
+        class="clear-icon"
+        (click)="clearSearch()"
+      >
+      </ion-icon>
+    </div>
+  </div>
+
+  <!-- BANNER SLIDER -->
+  <div class="banner-slider">
+    <div
+      class="banner-card"
+      *ngFor="let banner of banners; let i = index"
+      [class.active]="currentBanner === i"
+    >
+      <img [src]="banner.image" />
+
+      <div class="overlay"></div>
+
+      <div class="banner-content">
+        <h2>{{ banner.title }}</h2>
+
+        <p>{{ banner.subtitle }}</p>
+
+        <ion-button size="small"> Shop Now </ion-button>
+      </div>
+    </div>
+
+    <!-- DOTS -->
+    <div class="dots">
+      <span
+        *ngFor="let banner of banners; let i = index"
+        [class.active]="currentBanner === i"
+        (click)="setBanner(i)"
+      >
+      </span>
+    </div>
+  </div>
+
+  <!-- CATEGORIES -->
+  <div class="section-header">
+    <h2>Categories</h2>
+  </div>
+
+  <div class="categories-wrapper">
+    <div
+      class="category-card"
+      *ngFor="let cat of categories"
+      [class.active]="selectedCategoryId === cat.id"
+      (click)="selectCategory(cat)"
+    >
+      <div class="icon-wrapper">
+        <ion-icon [name]="cat.icon || 'apps'"></ion-icon>
+      </div>
+
+      <p>{{ cat.name }}</p>
+    </div>
+  </div>
+  <!-- FILTER CHIPS -->
+  <div class="filter-wrapper">
+    <div
+      class="filter-chip"
+      *ngFor="let filter of filters"
+      [class.active]="selectedFilter === filter"
+      (click)="selectFilter(filter)"
+    >
+      {{ filter }}
+    </div>
+  </div>
+
+  <!-- FEATURED PRODUCTS -->
+  <div class="product-section">
+    <div class="section-header">
+      <h2>Featured Products</h2>
+      <p>Best picks for you</p>
+    </div>
+    <h1>Total Products: {{ products.length }}</h1>
+
+    <div class="horizontal-products">
+      <div
+        class="horizontal-product-card"
+        *ngFor="let product of featuredProducts"
+      >
+        <app-product-card [product]="product"></app-product-card>
+      </div>
+    </div>
+  </div>
+
+  <!-- TRENDING PRODUCTS -->
+  <div class="product-section">
+    <div class="section-header">
+      <h2>Trending Now 🔥</h2>
+      <p>Most popular products</p>
+    </div>
+
+    <div class="desktop-products-grid">
+      <div class="product-item" *ngFor="let product of filteredProducts">
+        <app-product-card [product]="product"></app-product-card>
+      </div>
+    </div>
+
+    <!-- EMPTY STATE -->
+
+    <div class="empty-state" *ngIf="filteredProducts.length === 0">
+      <ion-icon name="search-outline"></ion-icon>
+
+      <h3>No Products Found</h3>
+
+      <p>Try changing filters</p>
+    </div>
+  </div>
+</ion-content>

@@ -1,0 +1,138 @@
+<app-header title="My Profile"></app-header>
+
+<ion-content class="profile-content">
+  <!-- First Time User -->
+
+  <ion-card color="warning" *ngIf="!isProfileCompleted">
+    <ion-card-content>
+      <h2>Welcome 👋</h2>
+
+      <p>Complete your profile to continue shopping.</p>
+
+      <ion-button expand="block" (click)="enableEdit()">
+        Complete Profile
+      </ion-button>
+    </ion-card-content>
+  </ion-card>
+
+  <!-- Profile Summary -->
+
+  <ion-card class="profile-card">
+    <ion-card-content>
+      <div class="profile-top">
+        <ion-avatar class="profile-avatar">
+          <img src="assets/logo/k2-logo.png" />
+        </ion-avatar>
+
+        <div class="profile-info">
+          <h2>{{ userData.name || 'User' }}</h2>
+
+          <p>{{ userData.mobile }}</p>
+
+          <p *ngIf="userData.email">{{ userData.email }}</p>
+        </div>
+
+        <div class="profile-btn-area">
+          <ion-button fill="outline" color="primary" (click)="enableEdit()">
+            Edit Profile
+          </ion-button>
+        </div>
+      </div>
+    </ion-card-content>
+  </ion-card>
+
+  <!-- Personal Details -->
+
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title> Personal Details </ion-card-title>
+    </ion-card-header>
+
+    <ion-card-content>
+      <ion-item>
+        <ion-label position="stacked"> Full Name </ion-label>
+
+        <ion-input [(ngModel)]="userData.name" [readonly]="!isEditing">
+        </ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="stacked"> Email </ion-label>
+
+        <ion-input
+          type="email"
+          [(ngModel)]="userData.email"
+          [readonly]="!isEditing"
+        >
+        </ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="stacked"> Mobile Number </ion-label>
+
+        <ion-input [(ngModel)]="userData.mobile" readonly> </ion-input>
+      </ion-item>
+    </ion-card-content>
+  </ion-card>
+
+  <!-- Address Details -->
+
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title> Address Details </ion-card-title>
+    </ion-card-header>
+
+    <ion-card-content>
+      <ion-item>
+        <ion-label position="stacked"> Pincode </ion-label>
+
+        <ion-input
+          type="number"
+          [(ngModel)]="userData.pincode"
+          [readonly]="!isEditing"
+        >
+        </ion-input>
+      </ion-item>
+    </ion-card-content>
+  </ion-card>
+
+  <!-- Account Options -->
+
+  <ion-card *ngIf="isProfileCompleted">
+    <ion-list>
+      <ion-item button>
+        <ion-icon slot="start" name="bag-outline"> </ion-icon>
+
+        <ion-label> My Orders </ion-label>
+      </ion-item>
+
+      <ion-item button>
+        <ion-icon slot="start" name="heart-outline"> </ion-icon>
+
+        <ion-label> Wishlist </ion-label>
+      </ion-item>
+
+      <ion-item button>
+        <ion-icon slot="start" name="help-circle-outline"> </ion-icon>
+
+        <ion-label> Help & Support </ion-label>
+      </ion-item>
+
+      <ion-item button color="danger" (click)="logout()">
+        <ion-icon slot="start" name="log-out-outline"> </ion-icon>
+
+        <ion-label> Logout </ion-label>
+      </ion-item>
+    </ion-list>
+  </ion-card>
+
+  <!-- Save Buttons -->
+
+  <div class="profile-actions" *ngIf="isEditing" style="text-align: center">
+    <ion-button fill="outline" color="medium" (click)="cancelEdit()">
+      Cancel
+    </ion-button>
+
+    <ion-button (click)="saveProfile()"> Save Profile </ion-button>
+  </div>
+</ion-content>

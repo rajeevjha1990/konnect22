@@ -1,0 +1,148 @@
+/* SIDEBAR */
+
+ion-menu {
+  --width: 300px;
+  --background: var(--ion-color-primary);
+
+  border-right: none;
+}
+
+ion-menu ion-content {
+  --background: linear-gradient(180deg, var(--ion-color-primary), #3249d8);
+}
+
+/* MENU LIST */
+
+.menu-list {
+  padding: 16px 12px 30px;
+  background: transparent;
+}
+
+/* MENU ITEM */
+
+.menu-list ion-item {
+  --background: transparent;
+  --color: #ffffff;
+  --border-color: transparent;
+
+  margin-bottom: 8px;
+
+  border-radius: 14px;
+
+  font-size: 15px;
+  font-weight: 500;
+
+  transition: all 0.3s ease;
+}
+
+.menu-list ion-item:hover {
+  --background: rgba(255, 255, 255, 0.08);
+
+  transform: translateX(4px);
+}
+
+/* ICON */
+
+.menu-list ion-item ion-icon {
+  color: #ffffff;
+
+  font-size: 22px;
+
+  margin-right: 8px;
+}
+
+/* LABEL */
+
+.menu-list ion-label {
+  font-size: 15px;
+  font-weight: 500;
+}
+
+/* ACTIVE */
+
+.active-menu {
+  --background: rgba(255, 255, 255, 0.15);
+
+  border-left: 4px solid #ffffff;
+}
+
+.active-menu ion-icon,
+.active-menu ion-label {
+  color: #ffffff !important;
+
+  font-weight: 700;
+}
+
+/* BADGE */
+
+ion-badge {
+  font-size: 11px;
+
+  min-width: 20px;
+
+  height: 20px;
+
+  border-radius: 20px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* LOGOUT */
+
+.menu-list ion-item:last-child {
+  margin-top: 20px;
+
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
+
+  padding-top: 12px;
+}
+
+/* TABLET */
+
+@media (max-width: 768px) {
+  ion-menu {
+    --width: 280px;
+  }
+
+  .menu-list ion-item {
+    font-size: 14px;
+  }
+
+  .menu-list ion-item ion-icon {
+    font-size: 20px;
+  }
+}
+
+/* MOBILE */
+
+@media (max-width: 480px) {
+  ion-menu {
+    --width: 260px;
+  }
+
+  .menu-list {
+    padding: 12px 8px 20px;
+  }
+
+  .menu-list ion-item {
+    margin-bottom: 6px;
+  }
+}
+
+/* LARGE DESKTOP */
+
+@media (min-width: 1400px) {
+  ion-menu {
+    --width: 340px;
+  }
+
+  .menu-list ion-item {
+    font-size: 16px;
+  }
+
+  .menu-list ion-item ion-icon {
+    font-size: 24px;
+  }
+}

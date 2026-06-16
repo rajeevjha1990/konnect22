@@ -1,0 +1,42 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <div class="header-container">
+      <div class="logo-section">
+        <img src="assets/logo/k2-logo.png" class="logo" alt="Logo" />
+      </div>
+
+      <div class="title-section">
+        <h1 class="header-title">
+          {{ title }}
+        </h1>
+      </div>
+
+      <div class="actions">
+        <div
+          class="wishlist-section"
+          *ngIf="showActions"
+          (click)="goToWishlist()"
+        >
+          <ion-icon name="heart-outline"></ion-icon>
+
+          <span *ngIf="wishlistCount > 0" class="wishlist-count">
+            {{ wishlistCount }}
+          </span>
+        </div>
+
+        <div class="cart-section" *ngIf="showActions" (click)="goToCart()">
+          <ion-icon name="cart-outline"></ion-icon>
+
+          <span *ngIf="cartCount > 0" class="cart-count">
+            {{ cartCount }}
+          </span>
+        </div>
+
+        <!-- 3 Dot / Menu Button Right Side -->
+        <div class="menu-section">
+          <ion-menu-button autoHide="false"></ion-menu-button>
+        </div>
+      </div>
+    </div>
+  </ion-toolbar>
+</ion-header>

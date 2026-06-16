@@ -1,0 +1,110 @@
+<app-header></app-header>
+
+<ion-content class="orders-page">
+  <div class="orders-header">
+    <h1>My Orders</h1>
+    <p>Track your recent purchases</p>
+  </div>
+
+  <div class="empty-state" *ngIf="orders.length === 0">
+    <h2>No Orders Found</h2>
+
+    <p>You have not placed any order yet.</p>
+
+    <ion-button expand="block" class="shop-btn" (click)="continueShopping()">
+      Start Shopping
+    </ion-button>
+  </div>
+
+  <div *ngIf="orders.length > 0" class="orders-wrapper">
+    <div class="order-card" *ngFor="let order of orders">
+      <div class="order-top">
+        <div>
+          <p class="label">Order No</p>
+          <h3>{{ order.order_no }}</h3>
+        </div>
+
+        <div
+          class="status-badge"
+          [ngClass]="{
+            'pending': order.status === 'Pending',
+            'confirmed': order.status === 'Confirmed',
+            'cancelled': order.status === 'Cancelled',
+            'delivered': order.status === 'Delivered'
+          }"
+        >
+          {{ order.status }}
+        </div>
+      </div>
+
+      <div class="info-grid">
+        <div class="info-box">
+          <p>Date</p>
+          <strong> {{ order.created_at | date:'dd MMM yyyy' }} </strong>
+        </div>
+
+        <div class="info-box">
+          <p>Total</p>
+          <strong>₹{{ order.total }}</strong>
+        </div>
+
+        <div class="info-box">
+          <p>Items</p>
+          <strong>{{ order.items.length }}</strong>
+        </div>
+
+        <div class="info-box">
+          <p>Payment</p>
+          <strong>{{ order.payment_mode }}</strong>
+        </div>
+      </div>
+
+      <div class="products-list">
+        <div class="product-item" *ngFor="let item of order.items">
+          <img [src]="item.image" [alt]="item.name" />
+
+          <div class="product-info">
+            <h4>{{ item.name }}</h4>
+
+            <p>Qty: {{ item.quantity }}</p>
+          </div>
+
+          <strong> ₹{{ item.price * item.quantity }} </strong>
+        </div>
+      </div>
+
+      <!-- CANCEL ORDER BUTTON -->
+
+      <div
+        class="order-actions"
+        *ngIf="
+          order.status === 'Pending' ||
+          order.status === 'Confirmed'
+        "
+      >
+        <ion-button
+          color="danger"
+          fill="outline"
+          size="small"
+          (click)="cancelOrder(order)"
+        >
+          <ion-icon slot="start" name="close-circle-outline"></ion-icon>
+
+          Cancel Order
+        </ion-button>
+      </div>
+
+      <!-- CANCELLED MESSAGE -->
+
+      <div class="cancelled-badge" *ngIf="order.status === 'Cancelled'">
+        Order Cancelled
+      </div>
+    </div>
+  </div>
+
+  <div class="btn-group" *ngIf="orders.length > 0">
+    <ion-button expand="block" (click)="continueShopping()">
+      Continue Shopping
+    </ion-button>
+  </div>
+</ion-content>

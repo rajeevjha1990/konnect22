@@ -1,0 +1,176 @@
+<app-header></app-header>
+
+<ion-content class="cart-page">
+  <!-- EMPTY CART -->
+
+  <div *ngIf="cart.length === 0" class="empty-cart">
+    <img src="assets/images/empty-cart.png" alt="Empty Cart" />
+
+    <h2>Your Cart is Empty</h2>
+
+    <p>Looks like you haven’t added anything yet.</p>
+
+    <ion-button routerLink="/home" class="shop-btn">
+      Continue Shopping
+    </ion-button>
+  </div>
+
+  <!-- CART CONTENT -->
+
+  <div *ngIf="cart.length > 0">
+    <!-- HEADER -->
+
+    <div class="cart-header">
+      <h2>My Cart</h2>
+
+      <p>{{ cart.length }} item{{ cart.length > 1 ? 's' : '' }}</p>
+    </div>
+
+    <!-- CART ITEMS -->
+
+    <ion-item-sliding *ngFor="let item of cart" class="sliding-item">
+      <ion-item-options side="end">
+        <ion-item-option color="danger" (click)="remove(item)">
+          <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
+        </ion-item-option>
+      </ion-item-options>
+
+      <ion-item lines="none" class="cart-item">
+        <!-- IMAGE -->
+
+        <div class="image-box">
+          <img [src]="item.image" [alt]="item.name" />
+        </div>
+
+        <!-- CONTENT -->
+
+        <div class="content-box">
+          <p class="category">{{ item.category }}</p>
+
+          <h3>{{ item.name }}</h3>
+
+          <div class="price-row">
+            <span class="price"> ₹{{ item.price }} </span>
+
+            <span class="old-price"> ₹{{ item.price + 2000 }} </span>
+          </div>
+
+          <!-- RATING -->
+
+          <div class="rating-row">
+            <ion-icon name="star" *ngFor="let star of [1,2,3,4]"></ion-icon>
+
+            <ion-icon name="star-outline"></ion-icon>
+            <span>{{ item.rating }}</span>
+          </div>
+
+          <!-- BOTTOM -->
+
+          <div class="bottom-row">
+            <!-- QUANTITY -->
+
+            <div class="qty-box">
+              <button class="qty-btn" (click)="decrease(item)">-</button>
+
+              <span> {{ item.quantity }} </span>
+
+              <button class="qty-btn" (click)="increase(item)">+</button>
+            </div>
+
+            <!-- REMOVE -->
+
+            <button class="remove-btn" (click)="remove(item)">Remove</button>
+          </div>
+        </div>
+      </ion-item>
+    </ion-item-sliding>
+
+    <!-- COUPON -->
+
+    <div class="coupon-card">
+      <div class="coupon-header">
+        <ion-icon name="ticket-outline"></ion-icon>
+
+        <h3>Apply Coupon</h3>
+      </div>
+
+      <div class="coupon-row">
+        <ion-input
+          placeholder="Enter coupon code"
+          [(ngModel)]="couponCode"
+        ></ion-input>
+
+        <ion-button size="small" (click)="applyCoupon()"> Apply </ion-button>
+      </div>
+
+      <p class="coupon-success" *ngIf="couponDiscount > 0">
+        Coupon Applied Successfully 🎉
+      </p>
+    </div>
+
+    <!-- RELATED PRODUCTS -->
+
+    <div class="related-section" *ngIf="relatedProducts.length > 0">
+      <div class="section-title">
+        <h2>You May Also Like</h2>
+      </div>
+
+      <div class="related-list">
+        <div class="related-card" *ngFor="let item of relatedProducts">
+          <div class="related-click" (click)="openRelatedProduct(item)">
+            <img [src]="item.image" [alt]="item.name" />
+
+            <h3>{{ item.name }}</h3>
+
+            <p class="related-price">₹{{ item.price }}</p>
+          </div>
+
+          <ion-button
+            expand="block"
+            size="small"
+            class="related-btn"
+            (click)="addRelatedToCart(item)"
+          >
+            Add To Cart
+          </ion-button>
+        </div>
+      </div>
+    </div>
+  </div>
+</ion-content>
+
+<!-- FOOTER -->
+
+<ion-footer *ngIf="cart.length > 0">
+  <div class="footer-card">
+    <div class="summary-row">
+      <span>Subtotal</span>
+
+      <strong>₹{{ getSubtotal() }}</strong>
+    </div>
+
+    <div class="summary-row">
+      <span>Delivery</span>
+
+      <strong>
+        {{ deliveryCharge === 0 ? 'FREE' : '₹' + deliveryCharge }}
+      </strong>
+    </div>
+
+    <div class="summary-row" *ngIf="couponDiscount > 0">
+      <span>Discount</span>
+
+      <strong class="discount-text"> -₹{{ couponDiscount }} </strong>
+    </div>
+
+    <div class="summary-row total-row">
+      <span>Total</span>
+
+      <strong>₹{{ getFinalTotal() }}</strong>
+    </div>
+
+    <ion-button expand="block" class="checkout-btn" (click)="goToCheckout()">
+      Proceed To Checkout
+    </ion-button>
+  </div>
+</ion-footer>

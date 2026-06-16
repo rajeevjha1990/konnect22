@@ -1,0 +1,150 @@
+ion-header ion-toolbar {
+  --padding-start: 0;
+  --padding-end: 0;
+  --padding-top: 0;
+  --padding-bottom: 0;
+  min-height: 70px;
+}
+
+.header-container {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  padding: 12px 20px;
+}
+
+/* Logo */
+.logo-section {
+  display: flex;
+  align-items: center;
+}
+
+.logo {
+  height: 50px;
+  width: 50px;
+  border-radius: 50%;
+  object-fit: contain;
+}
+
+/* Title */
+.title-section {
+  flex: 1;
+  margin-left: 12px;
+}
+
+.header-title {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 600;
+  color: #fff;
+}
+
+/* Right Side */
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+.wishlist-section,
+.cart-section,
+.menu-section {
+  position: relative;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.wishlist-section ion-icon,
+.cart-section ion-icon,
+.menu-section ion-icon {
+  font-size: 24px;
+  color: #fff;
+}
+
+/* Badges */
+.wishlist-count,
+.cart-count {
+  position: absolute;
+  top: -6px;
+  right: -8px;
+  min-width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: #ff3b30;
+  color: #fff;
+  font-size: 10px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 4px;
+}
+
+ion-menu-button {
+  --color: white;
+}
+
+/* =========================
+   MOBILE
+========================= */
+@media (max-width: 991px) {
+  .header-container {
+    padding: 10px 12px;
+  }
+
+  .logo {
+    height: 42px;
+    width: 42px;
+  }
+
+  .header-title {
+    font-size: 16px;
+  }
+
+  .actions {
+    gap: 12px;
+  }
+}
+
+/* =========================
+   DESKTOP
+========================= */
+@media (min-width: 992px) {
+  ion-header ion-toolbar {
+    min-height: 80px;
+  }
+
+  .header-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 15px 30px;
+  }
+
+  .logo {
+    height: 60px;
+    width: 60px;
+  }
+
+  .header-title {
+    font-size: 24px;
+    letter-spacing: 1px;
+  }
+
+  .actions {
+    gap: 25px;
+  }
+
+  .wishlist-section ion-icon,
+  .cart-section ion-icon,
+  .menu-section ion-icon {
+    font-size: 28px;
+  }
+
+  .wishlist-count,
+  .cart-count {
+    min-width: 20px;
+    height: 20px;
+    font-size: 11px;
+  }
+}

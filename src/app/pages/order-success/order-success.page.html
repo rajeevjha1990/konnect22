@@ -1,0 +1,101 @@
+<app-header></app-header>
+
+<ion-content class="ion-padding">
+  <div class="success-wrapper">
+    <ion-icon name="checkmark-circle" class="success-icon"> </ion-icon>
+
+    <h1>Order Placed Successfully</h1>
+
+    <p class="subtitle">Thank you for shopping with us.</p>
+  </div>
+
+  <ion-card *ngIf="order">
+    <ion-card-content>
+      <h2>Order Details</h2>
+
+      <div class="row">
+        <span>Order No</span>
+        <strong>{{ order.order_no }}</strong>
+      </div>
+
+      <div class="row">
+        <span>Status</span>
+        <strong>{{ order.status }}</strong>
+      </div>
+
+      <div class="row">
+        <span>Payment Mode</span>
+        <strong>{{ order.payment_mode }}</strong>
+      </div>
+
+      <div class="row">
+        <span>Payment Status</span>
+        <strong>{{ order.payment_status }}</strong>
+      </div>
+
+      <div class="row">
+        <span>Subtotal</span>
+        <strong>₹{{ order.subtotal }}</strong>
+      </div>
+
+      <div class="row">
+        <span>Shipping</span>
+        <strong>₹{{ order.shipping }}</strong>
+      </div>
+
+      <div class="row">
+        <span>Discount</span>
+        <strong>₹{{ order.discount }}</strong>
+      </div>
+
+      <div class="row">
+        <span>Total Amount</span>
+        <strong>₹{{ order.total }}</strong>
+      </div>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card *ngIf="order">
+    <ion-card-content>
+      <h2>Delivery Address</h2>
+
+      <p>
+        <strong>{{ order.order_name }}</strong>
+      </p>
+
+      <p>{{ order.order_number }}</p>
+
+      <p>{{ order.order_address }}</p>
+
+      <p>{{ order.order_city }} - {{ order.order_pincode }}</p>
+
+      <p *ngIf="order.order_landmark">Landmark : {{ order.order_landmark }}</p>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card *ngIf="order">
+    <ion-card-content>
+      <h2>Ordered Product</h2>
+
+      <div class="product">
+        <div>
+          <strong>{{ order.name }}</strong>
+
+          <p>Qty : {{ order.qty }}</p>
+        </div>
+
+        <strong> ₹{{ order.price }} </strong>
+      </div>
+    </ion-card-content>
+  </ion-card>
+
+  <div class="btn-group">
+    <ion-button expand="block" (click)="continueShopping()">
+      Continue Shopping
+    </ion-button>
+
+    <ion-button expand="block" fill="outline" (click)="viewOrders()">
+      My Orders
+    </ion-button>
+  </div>
+</ion-content>

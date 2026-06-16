@@ -1,3 +1,62 @@
 <ion-app>
-  <ion-router-outlet></ion-router-outlet>
+  <ion-menu contentId="main-content" side="end" type="overlay">
+    <app-header [showActions]="false" title="konnect22"> </app-header>
+
+    <ion-content>
+      <ion-list class="menu-list">
+        <ion-menu-toggle autoHide="true">
+          <ion-item routerLink="/home" routerLinkActive="active-menu">
+            <ion-icon slot="start" name="home-outline"></ion-icon>
+            <ion-label>Home</ion-label>
+          </ion-item>
+        </ion-menu-toggle>
+
+        <ion-menu-toggle autoHide="true">
+          <ion-item routerLink="/profile" routerLinkActive="active-menu">
+            <ion-icon slot="start" name="person-outline"></ion-icon>
+            <ion-label>Profile</ion-label>
+          </ion-item>
+        </ion-menu-toggle>
+
+        <ion-menu-toggle autoHide="true">
+          <ion-item routerLink="/wishlist" routerLinkActive="active-menu">
+            <ion-icon slot="start" name="heart-outline"> </ion-icon>
+
+            <ion-label>Wishlist</ion-label>
+
+            <ion-badge slot="end" color="danger" *ngIf="wishlistCount > 0">
+              {{ wishlistCount }}
+            </ion-badge>
+          </ion-item>
+        </ion-menu-toggle>
+
+        <ion-menu-toggle autoHide="true">
+          <ion-item routerLink="/cart" routerLinkActive="active-menu">
+            <ion-icon slot="start" name="cart-outline"> </ion-icon>
+
+            <ion-label>Cart</ion-label>
+
+            <ion-badge slot="end" color="primary" *ngIf="cartCount > 0">
+              {{ cartCount }}
+            </ion-badge>
+          </ion-item>
+        </ion-menu-toggle>
+
+        <ion-menu-toggle autoHide="true">
+          <ion-item routerLink="/my-orders" routerLinkActive="active-menu">
+            <ion-icon slot="start" name="cube-outline"></ion-icon>
+            <ion-label>My Orders</ion-label>
+          </ion-item>
+        </ion-menu-toggle>
+
+        <ion-item button (click)="logout()">
+          <ion-icon slot="start" name="log-out-outline"> </ion-icon>
+
+          <ion-label> Logout </ion-label>
+        </ion-item>
+      </ion-list>
+    </ion-content>
+  </ion-menu>
+
+  <ion-router-outlet id="main-content"> </ion-router-outlet>
 </ion-app>

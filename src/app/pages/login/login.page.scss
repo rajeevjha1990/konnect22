@@ -1,0 +1,102 @@
+.auth-page {
+  --background: #f4f6f9;
+}
+
+.hero-section {
+  height: 230px;
+  background: linear-gradient(135deg, #5b21b6, #2563eb);
+
+  border-bottom-left-radius: 40px;
+  border-bottom-right-radius: 40px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  color: white;
+  text-align: center;
+
+  padding: 20px;
+}
+
+.app-logo {
+  width: 80px;
+  height: 80px;
+  border-radius: 16px;
+  background: white;
+  padding: 6px;
+  margin-bottom: 12px;
+}
+
+.hero-section h1 {
+  margin: 0;
+  font-size: 32px;
+  font-weight: 700;
+}
+
+.hero-section p {
+  margin-top: 8px;
+  opacity: 0.9;
+}
+
+.auth-card {
+  margin: -40px 20px 20px;
+  background: white;
+
+  border-radius: 24px;
+
+  padding: 24px;
+
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+}
+
+.auth-card h2 {
+  text-align: center;
+  margin-bottom: 20px;
+  font-size: 24px;
+  font-weight: 700;
+}
+
+.custom-input {
+  --background: #f8fafc;
+  --border-radius: 14px;
+  margin-bottom: 14px;
+}
+
+.auth-btn {
+  height: 52px;
+  margin-top: 12px;
+
+  --border-radius: 14px;
+
+  font-weight: 600;
+}
+
+.bottom-link {
+  text-align: center;
+  margin-top: 20px;
+  color: #666;
+}
+
+.bottom-link span {
+  color: #2563eb;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.forgot-row {
+  text-align: right;
+  margin-bottom: 10px;
+}
+
+.forgot-row a {
+  color: #2563eb;
+  text-decoration: none;
+}
+
+.otp-info {
+  text-align: center;
+  margin-bottom: 15px;
+  color: #666;
+}
