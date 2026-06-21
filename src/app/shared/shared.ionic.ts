@@ -33,12 +33,9 @@ import {
   IonFabButton,
   IonFabList,
   IonItemGroup,
-  IonCheckbox,
   IonNote,
   IonRadioGroup,
   IonRadio,
-  IonSegment,
-  IonSegmentButton,
   IonFooter,
   IonInputOtp,
   IonTab,
@@ -62,6 +59,9 @@ import {
   IonItemSliding,
   IonItemOptions,
   IonItemOption,
+  IonSegment,
+  IonSegmentButton,
+  IonCheckbox,
 } from '@ionic/angular/standalone';
 
 export const SHARED_IONIC_MODULES = [
@@ -153,4 +153,7 @@ export const SHARED_IONIC_MODULES = [
   IonItemSliding,
   IonItemOptions,
   IonItemOption,
+  IonSegment,
+  IonSegmentButton,
+  IonCheckbox,
 ];

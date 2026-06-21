@@ -179,4 +179,38 @@ export class UserService {
     const apiResp = await this.svjHttp.post(url, data);
     return apiResp;
   }
+  async saveAddress(addressdata: any) {
+    const url = Constants.USER_API_PATH + 'save_address';
+    const apiResp = await this.svjHttp.post(url, addressdata);
+    return apiResp;
+  }
+  async getUserAddresses() {
+    const url = Constants.USER_API_PATH + 'getAddresses';
+    const respData = await this.svjHttp.post(url, {});
+    if (respData) {
+      return respData.addresses;
+    } else {
+      return [];
+    }
+  }
+  async getAddress(addressId: any) {
+    const data = {
+      addressId: addressId,
+    };
+    const url = Constants.USER_API_PATH + 'get_address';
+    const respData = await this.svjHttp.post(url, data);
+    if (respData) {
+      return respData.address;
+    } else {
+      return [];
+    }
+  }
+  async deleteAddress(addressId: any) {
+    const data = {
+      addressId: addressId,
+    };
+    const url = Constants.USER_API_PATH + 'delete_address';
+    const apiResp = await this.svjHttp.post(url, data);
+    return apiResp;
+  }
 }

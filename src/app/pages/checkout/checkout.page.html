@@ -10,76 +10,53 @@
     <div class="delivery-icon">
       <ion-icon name="cube-outline"></ion-icon>
     </div>
+
     <div>
       <h3>Delivery by {{ estimatedDelivery }}</h3>
       <p>Free delivery available</p>
     </div>
   </div>
 
+  <!-- ADDRESS -->
+
   <div class="checkout-card">
     <div class="section-title">
       <ion-icon name="location-outline"></ion-icon>
-      <h2>Delivery Address</h2>
+      <h2>Select Delivery Address</h2>
+    </div>
+    <div
+      *ngFor="let address of addresses"
+      class="address-card"
+      [class.active]="isSelected(address)"
+      (click)="selectAddress(address)"
+    >
+      <div class="address-top">
+        <span class="address-type"> {{ address.type | titlecase }} </span>
+
+        <span *ngIf="isSelected(address)" class="selected-badge">
+          ✓ Selected
+        </span>
+      </div>
+
+      <div class="address-body">
+        <p class="mobile">{{ address.mobile }}</p>
+
+        <p class="address-line">{{ address.address }}</p>
+
+        <p class="pincode">PIN : {{ address.pincode }}</p>
+
+        <p *ngIf="address.landmark" class="landmark">
+          Landmark : {{ address.landmark }}
+        </p>
+      </div>
     </div>
 
-    <ion-item lines="none">
-      <ion-input
-        label="Full Name"
-        labelPlacement="floating"
-        [(ngModel)]="customer.name"
-        [disabled]="isSubmitting"
-      ></ion-input>
-    </ion-item>
-
-    <ion-item lines="none">
-      <ion-input
-        label="Mobile Number"
-        labelPlacement="floating"
-        inputmode="number"
-        maxlength="10"
-        [(ngModel)]="customer.mobile"
-        [disabled]="isSubmitting"
-      ></ion-input>
-    </ion-item>
-
-    <ion-item lines="none">
-      <ion-input
-        label="Address"
-        labelPlacement="floating"
-        [(ngModel)]="customer.address"
-        [disabled]="isSubmitting"
-      ></ion-input>
-    </ion-item>
-
-    <ion-item lines="none">
-      <ion-input
-        label="City"
-        labelPlacement="floating"
-        [(ngModel)]="customer.city"
-        [disabled]="isSubmitting"
-      ></ion-input>
-    </ion-item>
-
-    <ion-item lines="none">
-      <ion-input
-        label="Pincode"
-        labelPlacement="floating"
-        inputmode="number"
-        maxlength="6"
-        [(ngModel)]="customer.pincode"
-        [disabled]="isSubmitting"
-      ></ion-input>
-    </ion-item>
-
-    <ion-item lines="none">
-      <ion-input
-        label="Landmark"
-        labelPlacement="floating"
-        [(ngModel)]="customer.landmark"
-        [disabled]="isSubmitting"
-      ></ion-input>
-    </ion-item>
+    <ion-button expand="block" fill="outline" routerLink="/my-addresses">
+      Add New Address
+    </ion-button>
   </div>
+
+  <!-- PAYMENT -->
 
   <div class="checkout-card">
     <div class="section-title">
@@ -90,56 +67,37 @@
     <div
       class="payment-option"
       [class.active]="selectedPayment === 'cod'"
-      (click)="!isSubmitting && selectPayment('cod')"
+      (click)="selectPayment('cod')"
     >
       <div class="payment-left">
         <ion-icon name="cash-outline"></ion-icon>
+
         <div>
           <h3>Cash on Delivery</h3>
           <p>Pay after delivery</p>
         </div>
-      </div>
-      <div class="radio-circle">
-        <div class="radio-inner" *ngIf="selectedPayment === 'cod'"></div>
       </div>
     </div>
 
     <div
       class="payment-option"
       [class.active]="selectedPayment === 'upi'"
-      (click)="!isSubmitting && selectPayment('upi')"
+      (click)="selectPayment('upi')"
     >
       <div class="payment-left">
         <ion-icon name="phone-portrait-outline"></ion-icon>
+
         <div>
           <h3>UPI Payment</h3>
-          <p>Pay using any UPI app</p>
+          <p>Pay using any UPI App</p>
         </div>
-      </div>
-      <div class="radio-circle">
-        <div class="radio-inner" *ngIf="selectedPayment === 'upi'"></div>
-      </div>
-    </div>
-
-    <div
-      class="payment-option"
-      [class.active]="selectedPayment === 'card'"
-      (click)="!isSubmitting && selectPayment('card')"
-    >
-      <div class="payment-left">
-        <ion-icon name="card-outline"></ion-icon>
-        <div>
-          <h3>Credit / Debit Card</h3>
-          <p>Visa & Mastercard accepted</p>
-        </div>
-      </div>
-      <div class="radio-circle">
-        <div class="radio-inner" *ngIf="selectedPayment === 'card'"></div>
       </div>
     </div>
   </div>
 
-  <div class="checkout-card summary-card">
+  <!-- SUMMARY -->
+
+  <div class="checkout-card">
     <div class="section-title">
       <ion-icon name="receipt-outline"></ion-icon>
       <h2>Order Summary</h2>
@@ -152,21 +110,21 @@
 
     <div class="summary-row">
       <span>Delivery</span>
-      <strong class="free-text">
+      <strong>
         {{ deliveryCharge === 0 ? 'FREE' : '₹' + deliveryCharge }}
       </strong>
     </div>
 
     <div class="summary-row">
       <span>Discount</span>
-      <strong class="discount-text"> -₹{{ discount }} </strong>
+      <strong>-₹{{ discount }}</strong>
     </div>
 
     <div class="divider"></div>
 
     <div class="summary-row grand-total">
       <span>Total Amount</span>
-      <strong> ₹{{ getFinalTotal() }} </strong>
+      <strong>₹{{ getFinalTotal() }}</strong>
     </div>
   </div>
 </ion-content>
@@ -181,16 +139,10 @@
     <ion-button
       class="place-order-btn"
       expand="block"
-      (click)="placeOrder()"
       [disabled]="isSubmitting"
+      (click)="placeOrder()"
     >
-      <span *ngIf="!isSubmitting">Place Order</span>
-      <span
-        *ngIf="isSubmitting"
-        style="display: flex; align-items: center; gap: 8px"
-      >
-        <ion-spinner name="crescent"></ion-spinner> Processing...
-      </span>
+      Place Order
     </ion-button>
   </div>
 </ion-footer>

@@ -1,12 +1,13 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { Router } from '@angular/router';
+import { AlertController } from '@ionic/angular';
 import { FormsModule } from '@angular/forms';
-import { AlertController, NavController } from '@ionic/angular';
 
 import { CartService } from 'src/app/services/cart/cart.service';
-import { SHARED_IONIC_MODULES } from 'src/app/shared/shared.ionic';
-import { HeaderComponent } from 'src/app/components/header/header.component';
 import { OrderService } from 'src/app/services/order/order.service';
+import { HeaderComponent } from 'src/app/components/header/header.component';
+import { SHARED_IONIC_MODULES } from 'src/app/shared/shared.ionic';
+import { UserService } from 'src/app/services/user/user.service';
 
 @Component({
   selector: 'app-checkout',
@@ -17,36 +18,43 @@ import { OrderService } from 'src/app/services/order/order.service';
 })
 export class CheckoutPage implements OnInit {
   cart: any[] = [];
-
-  customer = {
-    name: '',
-    mobile: '',
-    address: '',
-    city: '',
-    pincode: '',
-    landmark: '',
-  };
-
+  addresses: any[] = [];
+  selectedAddress: any = null;
   selectedPayment = 'cod';
   deliveryCharge = 0;
   discount = 100;
   estimatedDelivery = 'Tomorrow';
-  isSubmitting = false; // Form submit state track karne ke liye
-
+  isSubmitting = false;
   private cartService = inject(CartService);
   private router = inject(Router);
   private orderService = inject(OrderService);
-  private navCtrl = inject(NavController);
-
+  private userServ = inject(UserService);
   constructor(private alertCtrl: AlertController) {}
 
   ngOnInit(): void {
     this.loadCart();
+    this.loadAddresses();
   }
 
   loadCart(): void {
     this.cart = this.cartService.getCart();
     this.calculateDelivery();
+  }
+
+  async loadAddresses() {
+    try {
+      this.addresses = await this.userServ.getUserAddresses();
+
+      console.log('ADDRESSES =>', this.addresses);
+
+      if (this.addresses && this.addresses.length > 0) {
+        this.selectedAddress = this.addresses[0];
+
+        console.log('DEFAULT SELECTED =>', this.selectedAddress);
+      }
+    } catch (error) {
+      console.error('ADDRESS LOAD ERROR =>', error);
+    }
   }
 
   calculateDelivery(): void {
@@ -56,6 +64,10 @@ export class CheckoutPage implements OnInit {
 
   selectPayment(method: string): void {
     this.selectedPayment = method;
+  }
+
+  selectAddress(address: any): void {
+    this.selectedAddress = address;
   }
 
   getTotal(): number {
@@ -71,26 +83,10 @@ export class CheckoutPage implements OnInit {
   }
 
   async placeOrder(): Promise<void> {
-    if (this.isSubmitting) return; // Double click validation
+    if (this.isSubmitting) return;
 
-    if (
-      !this.customer.name.trim() ||
-      !this.customer.mobile.trim() ||
-      !this.customer.address.trim() ||
-      !this.customer.city.trim() ||
-      !this.customer.pincode.trim()
-    ) {
-      await this.showAlert('Please fill all fields');
-      return;
-    }
-
-    if (!/^[0-9]{10}$/.test(this.customer.mobile)) {
-      await this.showAlert('Please enter valid mobile number');
-      return;
-    }
-
-    if (!/^[0-9]{6}$/.test(this.customer.pincode)) {
-      await this.showAlert('Please enter valid pincode');
+    if (!this.selectedAddress) {
+      await this.showAlert('Please select delivery address');
       return;
     }
 
@@ -101,35 +97,38 @@ export class CheckoutPage implements OnInit {
 
     const order = {
       order_id: 'ORD' + Date.now(),
-      customer_name: this.customer.name,
-      mobile: this.customer.mobile,
-      address: this.customer.address,
-      city: this.customer.city,
-      pincode: this.customer.pincode,
-      landmark: this.customer.landmark,
+
+      address_id: this.selectedAddress.id,
+      mobile: this.selectedAddress.mobile,
+      address_type: this.selectedAddress.type,
+      address: this.selectedAddress.address,
+      pincode: this.selectedAddress.pincode,
+      landmark: this.selectedAddress.landmark,
+
       items: JSON.stringify(this.cart),
+
       subtotal: this.getTotal(),
       delivery_charge: this.deliveryCharge,
       discount: this.discount,
       total_amount: this.getFinalTotal(),
+
       payment_method: this.selectedPayment,
+
       estimated_delivery: this.estimatedDelivery,
       status: 'Pending',
       created_at: new Date().toISOString(),
     };
 
-    this.isSubmitting = true; // Spinner on ho jayega aur button disable ho jayega
+    this.isSubmitting = true;
 
     try {
       const response: any = await this.orderService.placeOrder(order);
-      console.log('ORDER RESPONSE => ', response);
 
       if (response && (response.status === true || response.status === 200)) {
         localStorage.setItem('lastOrder', JSON.stringify(response));
-        this.cartService.clearCart();
-        console.log('CART CLEARED');
 
-        // Navigating with root replace to clear history stack smoothly
+        this.cartService.clearCart();
+
         await this.router.navigateByUrl('/my-orders', {
           replaceUrl: true,
         });
@@ -137,10 +136,10 @@ export class CheckoutPage implements OnInit {
         await this.showAlert(response?.msg || 'Failed to place order');
       }
     } catch (error) {
-      console.error('ORDER ERROR => ', error);
-      await this.showAlert('Unable to place order. Please try again.');
+      console.error(error);
+      await this.showAlert('Unable to place order');
     } finally {
-      this.isSubmitting = false; // Operation khatam hone par loader off
+      this.isSubmitting = false;
     }
   }
 
@@ -150,6 +149,10 @@ export class CheckoutPage implements OnInit {
       message: msg,
       buttons: ['OK'],
     });
+
     await alert.present();
+  }
+  isSelected(address: any): boolean {
+    return Number(this.selectedAddress?.id) === Number(address.id);
   }
 }

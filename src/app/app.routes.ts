@@ -65,6 +65,28 @@ export const routes: Routes = [
   },
   {
     path: 'profile',
-    loadComponent: () => import('./pages/profile/profile.page').then( m => m.ProfilePage)
+    loadComponent: () =>
+      import('./pages/profile/profile.page').then((m) => m.ProfilePage),
+  },
+  {
+    path: 'my-addresses',
+    loadComponent: () =>
+      import('./pages/my-addresses/my-addresses.page').then(
+        (m) => m.MyAddressesPage,
+      ),
+  },
+  {
+    path: 'new-address',
+    loadComponent: () =>
+      import('./pages/new-address/new-address.page').then(
+        (m) => m.NewAddressPage,
+      ),
+  },
+  {
+    path: 'edit-address/:addressId',
+    loadComponent: () =>
+      import('./pages/new-address/new-address.page').then(
+        (m) => m.NewAddressPage,
+      ),
   },
 ];

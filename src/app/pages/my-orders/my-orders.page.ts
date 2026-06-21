@@ -35,8 +35,6 @@ export class MyOrdersPage implements OnInit {
 
       const orders: any[] = await this.orderService.myOrders();
 
-      console.log('MY ORDERS =>', orders);
-
       if (orders && orders.length > 0) {
         const groupedOrders: any = {};
 

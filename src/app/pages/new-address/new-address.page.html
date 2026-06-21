@@ -1,0 +1,71 @@
+<app-header></app-header>
+
+<ion-content class="address-page">
+  <div class="address-container">
+    <div class="address-card">
+      <div class="page-header">
+        <h2>Add Delivery Address</h2>
+        <p>Save your delivery location for faster checkout</p>
+      </div>
+
+      <div class="address-type">
+        <ion-segment [(ngModel)]="address.type">
+          <ion-segment-button value="home">
+            <ion-label>Home</ion-label>
+          </ion-segment-button>
+
+          <ion-segment-button value="office">
+            <ion-label>Office</ion-label>
+          </ion-segment-button>
+        </ion-segment>
+      </div>
+      <ion-item class="custom-item">
+        <ion-input
+          type="telephone"
+          [(ngModel)]="address.mobile"
+          label="Mobile Number"
+          labelPlacement="stacked"
+          maxlength="10"
+          minlength="10"
+        ></ion-input>
+      </ion-item>
+      <ion-item class="custom-item">
+        <ion-input
+          [(ngModel)]="address.pincode"
+          label="Pincode"
+          labelPlacement="stacked"
+          maxlength="6"
+          minlength="6"
+        >
+        </ion-input>
+      </ion-item>
+
+      <ion-item class="custom-item">
+        <ion-textarea
+          rows="4"
+          [(ngModel)]="address.address"
+          label="Full Address"
+          labelPlacement="stacked"
+        >
+        </ion-textarea>
+      </ion-item>
+      <ion-item class="custom-item">
+        <ion-input
+          [(ngModel)]="address.landmark"
+          label="Landmark"
+          labelPlacement="stacked"
+        >
+        </ion-input>
+      </ion-item>
+
+      <div class="default-address">
+        <ion-checkbox [(ngModel)]="address.is_default"></ion-checkbox>
+        <span>Set as default address</span>
+      </div>
+
+      <ion-button expand="block" class="save-btn" (click)="saveAddress()">
+        Save Address
+      </ion-button>
+    </div>
+  </div>
+</ion-content>

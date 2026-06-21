@@ -24,6 +24,11 @@ import {
   heartOutline as heart,
   cubeOutline,
   logOutOutline,
+  checkmarkCircle,
+  cashOutline,
+  cardOutline,
+  locationOutline,
+  receiptOutline,
 } from 'ionicons/icons';
 
 import { AppComponent } from './app/app.component';
@@ -43,6 +48,12 @@ addIcons({
   'arrow-back-outline': arrowBackOutline,
   'cube-outline': cubeOutline,
   'log-out-outline': logOutOutline,
+  'checkmark-circle': checkmarkCircle,
+  'phone-portrait-outline': phonePortrait,
+  'cash-outline': cashOutline,
+  'card-outline': cardOutline,
+  'location-outline': locationOutline,
+  'receipt-outline': receiptOutline,
   heart: heart,
   apps: apps,
   'phone-portrait': phonePortrait,
@@ -57,6 +68,8 @@ addIcons({
   'star-half': 'starHalfOutline',
   'eye-outline': 'eyeOutline',
   'eye-off-outline': 'eyeOffOutline',
+  'create-outline': 'createOutline',
+  'call-outline': 'callOutlien',
 });
 
 bootstrapApplication(AppComponent, appConfig).catch((err) =>

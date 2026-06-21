@@ -231,3 +231,52 @@ ion-item {
 
   min-width: 180px;
 }
+.address-card {
+  background: #fff;
+  border: 2px solid #e5e7eb;
+  border-radius: 14px;
+  padding: 14px;
+  margin-bottom: 12px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.address-card.active {
+  border: 2px solid var(--ion-color-primary);
+  background: rgba(var(--ion-color-primary-rgb), 0.05);
+}
+
+.address-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.address-type {
+  background: var(--ion-color-primary);
+  color: #fff;
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.selected-badge {
+  color: #16a34a;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.mobile {
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+
+.address-line,
+.landmark,
+.pincode {
+  color: #666;
+  font-size: 14px;
+  margin: 4px 0;
+}

@@ -1,0 +1,66 @@
+<app-header></app-header>
+<ion-content [fullscreen]="true" class="ion-padding">
+  <div class="page-header">
+    <h2>My Addresses</h2>
+    <p>{{ addresses.length }} Saved Address(es)</p>
+  </div>
+
+  <div *ngIf="addresses.length === 0" class="empty-state">
+    <ion-icon name="location-outline"></ion-icon>
+    <h3>No Address Found</h3>
+    <p>Add your first delivery address</p>
+
+    <ion-button routerLink="/new-address"> Add Address </ion-button>
+  </div>
+
+  <div *ngFor="let address of addresses" class="address-card">
+    <div class="address-header">
+      <span class="address-type"> {{ address.type | titlecase }} </span>
+
+      <span class="default-badge" *ngIf="address.status == 1"> Default </span>
+    </div>
+
+    <div class="address-body">
+      <div class="mobile">
+        <ion-icon name="call-outline"></ion-icon>
+        {{ address.mobile }}
+      </div>
+
+      <div class="address-line">{{ address.address }}</div>
+
+      <div class="address-extra">PIN : {{ address.pincode }}</div>
+
+      <div *ngIf="address.landmark" class="address-extra">
+        Landmark : {{ address.landmark }}
+      </div>
+    </div>
+
+    <div class="address-actions">
+      <ion-button
+        fill="clear"
+        size="small"
+        color="primary"
+        [routerLink]="['/edit-address', address.id]"
+      >
+        <ion-icon slot="start" name="create-outline"></ion-icon>
+        Edit
+      </ion-button>
+
+      <ion-button
+        fill="clear"
+        size="small"
+        color="danger"
+        (click)="removeAddress(address.id)"
+      >
+        <ion-icon slot="start" name="trash-outline"></ion-icon>
+        Delete
+      </ion-button>
+    </div>
+  </div>
+
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button routerLink="/new-address">
+      <ion-icon name="add-outline"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+</ion-content>

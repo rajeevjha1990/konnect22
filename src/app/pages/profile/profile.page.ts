@@ -20,10 +20,7 @@ export class ProfilePage implements OnInit {
     name: '',
     email: '',
     mobile: '',
-    state: '',
-    district: '',
-    block: '',
-    village: '',
+
     pincode: '',
   };
   originalData: any = {};
@@ -55,10 +52,6 @@ export class ProfilePage implements OnInit {
           name: profile.user_name || '',
           email: profile.user_email || '',
           mobile: profile.user_mobile || '',
-          state: profile.user_state || '',
-          district: profile.user_district || '',
-          block: profile.user_block || '',
-          village: profile.user_village || '',
           pincode: profile.user_pincode || '',
         };
 
@@ -102,18 +95,12 @@ export class ProfilePage implements OnInit {
         user_name: this.userData.name,
         user_email: this.userData.email,
         mobile: this.userData.mobile,
-        state_id: this.userData.state,
-        district_id: this.userData.district,
-        block_id: this.userData.block,
-        village: this.userData.village,
         pincode: this.userData.pincode,
       };
 
       await this.userService.profileUpdate(formData);
 
       const resp = await this.userService.profileUpdate(formData);
-
-      console.log('UPDATE RESPONSE => ', resp);
 
       if (resp) {
         this.isEditing = false;
