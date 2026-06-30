@@ -1,14 +1,7 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import {
-  IonContent,
-  IonInput,
-  IonItem,
-  IonButton,
-  AlertController,
-  NavController,
-} from '@ionic/angular/standalone';
+import { AlertController, NavController } from '@ionic/angular';
 import { ActivatedRoute } from '@angular/router';
 import { UserService } from 'src/app/services/user/user.service';
 import { SHARED_IONIC_MODULES } from 'src/app/shared/shared.ionic';
@@ -18,15 +11,16 @@ import { SHARED_IONIC_MODULES } from 'src/app/shared/shared.ionic';
   templateUrl: './create-password.page.html',
   styleUrls: ['./create-password.page.scss'],
   standalone: true,
-  imports: [...SHARED_IONIC_MODULES, CommonModule, FormsModule], // Ensure CommonModule and FormsModule are here
+  imports: [...SHARED_IONIC_MODULES, CommonModule, FormsModule],
 })
 export class CreatePasswordPage implements OnInit {
   password = '';
   confirmPassword = '';
   mobile = '';
-  showPassword: boolean = false;
+
+  showPassword = false;
   showConfirmPassword = false;
-  isSubmitting = false; // Submit state manage karne ke liye
+  isSubmitting = false;
 
   private route = inject(ActivatedRoute);
   private userService = inject(UserService);
@@ -38,15 +32,17 @@ export class CreatePasswordPage implements OnInit {
   }
 
   async createPassword() {
-    if (this.isSubmitting) return; // Double click prevent karne ke liye
+    if (this.isSubmitting) {
+      return;
+    }
 
     if (!this.password || !this.confirmPassword) {
-      this.showAlert('Error', 'Please fill all fields');
+      await this.showAlert('Error', 'Please fill all fields');
       return;
     }
 
     if (this.password !== this.confirmPassword) {
-      this.showAlert('Error', 'Password and Confirm Password must match');
+      await this.showAlert('Error', 'Password and Confirm Password must match');
       return;
     }
 
@@ -61,17 +57,24 @@ export class CreatePasswordPage implements OnInit {
 
       const resp: any = await this.userService.createPassword(payload);
 
-      if (resp.status) {
+      const success = resp?.status === true;
+
+      if (success) {
+        await this.showAlert('Success', resp?.msg);
+
         this.navCtrl.navigateRoot('/login');
       } else {
-        console.error(resp.msg);
-        this.showAlert('Error', resp.msg || 'Failed to create password');
+        await this.showAlert('Error', resp?.msg || 'Failed to create password');
       }
-    } catch (error) {
-      console.error('Exception in createPassword:', error);
-      this.showAlert('Error', 'Something went wrong');
+    } catch (error: any) {
+      console.error(error);
+
+      await this.showAlert(
+        'Error',
+        error?.error?.msg || error?.message || 'Something went wrong',
+      );
     } finally {
-      this.isSubmitting = false; // Loader off karne ke liye
+      this.isSubmitting = false;
     }
   }
 

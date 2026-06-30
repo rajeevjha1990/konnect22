@@ -19,7 +19,7 @@
         </ion-menu-toggle>
         <ion-menu-toggle autoHide="true">
           <ion-item routerLink="/my-addresses" routerLinkActive="active-menu">
-            <ion-icon slot="start" name="person-outline"></ion-icon>
+            <ion-icon slot="start" name="location-outline"></ion-icon>
             <ion-label>My Addresses</ion-label>
           </ion-item>
         </ion-menu-toggle>
@@ -55,7 +55,7 @@
           </ion-item>
         </ion-menu-toggle>
 
-        <ion-item button (click)="logout()">
+        <ion-item button (click)="logout()" autoHide="true">
           <ion-icon slot="start" name="log-out-outline"> </ion-icon>
 
           <ion-label> Logout </ion-label>

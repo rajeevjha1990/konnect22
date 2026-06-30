@@ -29,6 +29,7 @@ import {
   cardOutline,
   locationOutline,
   receiptOutline,
+  closeCircleOutline,
 } from 'ionicons/icons';
 
 import { AppComponent } from './app/app.component';
@@ -70,6 +71,8 @@ addIcons({
   'eye-off-outline': 'eyeOffOutline',
   'create-outline': 'createOutline',
   'call-outline': 'callOutlien',
+  'close-circle-outline': 'closeCircleOutline',
+  'help-circle-outline': 'helpCircleOutline',
 });
 
 bootstrapApplication(AppComponent, appConfig).catch((err) =>

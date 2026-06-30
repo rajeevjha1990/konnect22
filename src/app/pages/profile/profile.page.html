@@ -75,52 +75,49 @@
     </ion-card-content>
   </ion-card>
 
-  <!-- Address Details -->
-
-  <ion-card>
-    <ion-card-header>
-      <ion-card-title> Address Details </ion-card-title>
-    </ion-card-header>
-
-    <ion-card-content>
-      <ion-item>
-        <ion-label position="stacked"> Pincode </ion-label>
-
-        <ion-input
-          type="number"
-          [(ngModel)]="userData.pincode"
-          [readonly]="!isEditing"
-        >
-        </ion-input>
-      </ion-item>
-    </ion-card-content>
-  </ion-card>
-
   <!-- Account Options -->
 
+  <!-- Account Options -->
   <ion-card *ngIf="isProfileCompleted">
     <ion-list>
-      <ion-item button>
-        <ion-icon slot="start" name="bag-outline"> </ion-icon>
-
+      <ion-item button routerLink="/my-orders">
+        <ion-icon slot="start" name="bag-outline"></ion-icon>
         <ion-label> My Orders </ion-label>
       </ion-item>
 
-      <ion-item button>
-        <ion-icon slot="start" name="heart-outline"> </ion-icon>
+      <!-- Naya Address Link Yahan Dalen -->
+      <ion-item button routerLink="/my-addresses">
+        <ion-icon
+          slot="start"
+          name="location-outline"
+          color="primary"
+        ></ion-icon>
+        <ion-label>
+          <h2>My Addresses</h2>
+          <p style="font-size: 0.8rem; color: var(--ion-color-medium)">
+            Manage your delivery locations
+          </p>
+        </ion-label>
+        <ion-icon
+          slot="end"
+          name="chevron-forward-outline"
+          size="small"
+          color="medium"
+        ></ion-icon>
+      </ion-item>
 
+      <ion-item button routerLink="/wishlist">
+        <ion-icon slot="start" name="heart-outline"></ion-icon>
         <ion-label> Wishlist </ion-label>
       </ion-item>
 
       <ion-item button>
-        <ion-icon slot="start" name="help-circle-outline"> </ion-icon>
-
+        <ion-icon slot="start" name="help-circle-outline"></ion-icon>
         <ion-label> Help & Support </ion-label>
       </ion-item>
 
       <ion-item button color="danger" (click)="logout()">
-        <ion-icon slot="start" name="log-out-outline"> </ion-icon>
-
+        <ion-icon slot="start" name="log-out-outline"></ion-icon>
         <ion-label> Logout </ion-label>
       </ion-item>
     </ion-list>

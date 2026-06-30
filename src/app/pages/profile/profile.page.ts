@@ -20,8 +20,6 @@ export class ProfilePage implements OnInit {
     name: '',
     email: '',
     mobile: '',
-
-    pincode: '',
   };
   originalData: any = {};
 
@@ -30,9 +28,7 @@ export class ProfilePage implements OnInit {
     private toastCtrl: ToastController,
   ) {}
 
-  async ngOnInit() {
-    await this.loadProfile();
-  }
+  ngOnInit() {}
 
   async ionViewWillEnter() {
     await this.loadProfile();
@@ -44,15 +40,12 @@ export class ProfilePage implements OnInit {
 
       const profile = await this.userService.getProfile();
 
-      console.log('PROFILE DATA => ', profile);
-
       if (profile) {
         this.userData = {
           user_id: profile.user_id || '',
           name: profile.user_name || '',
           email: profile.user_email || '',
           mobile: profile.user_mobile || '',
-          pincode: profile.user_pincode || '',
         };
 
         this.isProfileCompleted =
@@ -95,29 +88,29 @@ export class ProfilePage implements OnInit {
         user_name: this.userData.name,
         user_email: this.userData.email,
         mobile: this.userData.mobile,
-        pincode: this.userData.pincode,
       };
 
-      await this.userService.profileUpdate(formData);
+      const resp: any = await this.userService.profileUpdate(formData);
 
-      const resp = await this.userService.profileUpdate(formData);
-
-      if (resp) {
+      if (resp?.success) {
         this.isEditing = false;
 
         await this.loadProfile();
 
-        this.showToast('Profile updated successfully');
+        this.showToast(resp.message || 'Profile updated successfully');
+      } else {
+        this.showToast(resp?.message || 'Profile update failed');
       }
-    } catch (error) {
+    } catch (error: any) {
       console.error(error);
 
-      this.showToast('Profile update failed');
+      this.showToast(
+        error?.error?.message || error?.message || 'Profile update failed',
+      );
     } finally {
       this.isLoading = false;
     }
   }
-
   async refreshProfile(event: any) {
     await this.loadProfile(event);
   }

@@ -52,17 +52,19 @@ export class MyOrdersPage implements OnInit {
               items: [],
             };
           }
-
           groupedOrders[orderId].items.push({
             product_id: row.product_id,
-            name: row.name,
-            image: row.image,
+            name: row.product_name,
+            image: row.image_webp,
             quantity: Number(row.qty || 1),
             price: Number(row.price || 0),
           });
         });
 
-        this.orders = Object.values(groupedOrders);
+        this.orders = Object.values(groupedOrders).sort(
+          (a: any, b: any) =>
+            new Date(b.created_at).getTime() - new Date(a.created_at).getTime(),
+        );
 
         console.log('GROUPED ORDERS =>', this.orders);
       } else {

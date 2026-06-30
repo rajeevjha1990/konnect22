@@ -130,7 +130,11 @@ export class RajeevhttpService {
 
         //respBody.status = 200;
 
-        if (showAlertOnSuccess && respBody.msg) {
+        if (
+          showAlertOnSuccess &&
+          respBody.msg &&
+          (respBody.status === true || respBody.status === 1)
+        ) {
           this.presentAlert('', respBody.msg, 'Success');
         }
 

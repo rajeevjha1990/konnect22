@@ -29,6 +29,7 @@
           [ngClass]="{
             'pending': order.status === 'Pending',
             'confirmed': order.status === 'Confirmed',
+            'processing': order.status === 'Processing',
             'cancelled': order.status === 'Cancelled',
             'delivered': order.status === 'Delivered'
           }"
@@ -75,13 +76,7 @@
 
       <!-- CANCEL ORDER BUTTON -->
 
-      <div
-        class="order-actions"
-        *ngIf="
-          order.status === 'Pending' ||
-          order.status === 'Confirmed'
-        "
-      >
+      <div class="order-actions" *ngIf="order.status === 'Pending'">
         <ion-button
           color="danger"
           fill="outline"
@@ -89,7 +84,6 @@
           (click)="cancelOrder(order)"
         >
           <ion-icon slot="start" name="close-circle-outline"></ion-icon>
-
           Cancel Order
         </ion-button>
       </div>
