@@ -22,11 +22,7 @@
 
   <!-- IMAGE -->
   <div class="image-wrapper">
-    <img
-      [src]="product.image || 'assets/placeholder.png'"
-      [alt]="product.name"
-      loading="lazy"
-    />
+    <ion-img [src]="product.image"></ion-img>
   </div>
 
   <ion-card-content>

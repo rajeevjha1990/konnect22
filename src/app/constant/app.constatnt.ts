@@ -2,8 +2,7 @@
 export const INT_API_URL = 'http://localhost/konnect22/public/';
 
 // Live API
-export const EXT_API_URL =
-  'https://magenta-owl-204592.hostingersite.com/api/public/';
+export const EXT_API_URL = 'https://rajeev.theitstore.in/konnect22-admin/';
 
 // API Paths
 export const API_PATH = 'api/';
